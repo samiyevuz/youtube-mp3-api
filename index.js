@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { logDownload, getStats } = require('./db');
+const { logDownload } = require('./db');
 const { getMp3 } = require('./downloader');
 
 const app = express();
@@ -73,17 +73,6 @@ app.get('/api/yt/download', rapidApiAuth, async (req, res) => {
     }
 });
 
-app.get('/api/yt/stats', async (req, res) => {
-    try {
-        const stats = await getStats();
-        res.json({
-            status: "success",
-            data: stats
-        });
-    } catch (error) {
-        res.status(500).json({ status: "error", message: "Statistikani olishda xatolik" });
-    }
-});
 
 app.listen(PORT, () => {
     console.log(`Server http://localhost:${PORT} da ishga tushdi`);

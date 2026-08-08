@@ -13,10 +13,10 @@ EXCLUDE_DIRS = ['node_modules', '.git', '.system_generated', 'public/downloads']
 def run_cmd(ssh, cmd):
     print(f"Executing: {cmd}")
     stdin, stdout, stderr = ssh.exec_command(cmd)
-    out = stdout.read().decode().strip()
-    err = stderr.read().decode().strip()
-    if out: print(out)
-    if err: print(f"ERROR: {err}")
+    out = stdout.read().decode('utf-8', errors='replace').strip()
+    err = stderr.read().decode('utf-8', errors='replace').strip()
+    if out: print(out.encode('ascii', errors='replace').decode('ascii'))
+    if err: print(f"ERROR: {err.encode('ascii', errors='replace').decode('ascii')}")
 
 def upload_dir(sftp, local_dir, remote_dir):
     try:
