@@ -34,7 +34,7 @@ app.get('/api/yt/download', rapidApiAuth, async (req, res) => {
     const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
     if (!url) {
-        return res.status(400).json({ status: "error", message: "url parametrini kiriting (misol: ?url=https://youtube.com/watch?v=...)" });
+        return res.status(400).json({ status: "error", message: "url parameter is required (e.g. ?url=https://youtube.com/watch?v=...)" });
     }
 
     try {
@@ -67,7 +67,7 @@ app.get('/api/yt/download', rapidApiAuth, async (req, res) => {
         
         res.status(500).json({
             status: "error",
-            message: "Videoni yuklashda xatolik yuz berdi yoki limitga tushildi.",
+            message: "Failed to download the video or rate limit reached.",
             details: error.message
         });
     }
