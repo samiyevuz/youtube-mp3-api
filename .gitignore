@@ -1,0 +1,4 @@
+node_modules/
+.env
+stats.db
+public/downloads/

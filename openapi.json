@@ -1,0 +1,71 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "YouTube MP3 Downloader API",
+    "description": "YouTube videolarini MP3 formatida va limitlarsiz, anti-ban himoyasi bilan yuklab oluvchi API.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://213.199.36.249:3000",
+      "description": "Production Server"
+    }
+  ],
+  "paths": {
+    "/api/yt/download": {
+      "get": {
+        "summary": "YouTube videoni MP3 qilib yuklab olish",
+        "description": "Ushbu endpoint YouTube video havolasini oladi va uni MP3 ga o'girib, metadata va yuklab olish havolasini qaytaradi.",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "description": "YouTube video havolasi (URL)",
+            "schema": {
+              "type": "string",
+              "example": "https://youtu.be/dQw4w9WgXcQ"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Muvaffaqiyatli natija",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "title": { "type": "string" },
+                        "duration": { "type": "integer" },
+                        "thumbnail": { "type": "string" },
+                        "channel": { "type": "string" }
+                      }
+                    },
+                    "download_url": {
+                      "type": "string",
+                      "example": "http://213.199.36.249:3000/downloads/uuid.mp3"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Xato so'rov (URL berilmagan)"
+          },
+          "500": {
+            "description": "Server xatosi yoki yuklashda muammo"
+          }
+        }
+      }
+    }
+  }
+}
