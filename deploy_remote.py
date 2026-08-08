@@ -71,6 +71,10 @@ def main():
     print("Running npm install...")
     run_cmd(ssh, f"cd {REMOTE_DIR} && npm install --omit=dev")
     
+    # Update yt-dlp binary to bypass blocks
+    print("Updating yt-dlp binary...")
+    run_cmd(ssh, f"cd {REMOTE_DIR}/node_modules/youtube-dl-exec/bin && ./yt-dlp -U || true")
+    
     # Start with PM2
     print("Starting App with PM2...")
     run_cmd(ssh, f"cd {REMOTE_DIR} && pm2 stop yt-mp3-api || true")
